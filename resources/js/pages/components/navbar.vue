@@ -13,6 +13,9 @@
             <li class="px-2 py-1 bg-green-300 rounded-xl hover:bg-green-400" :class="{'bg-red-300':$page.component === 'Test'}">
                 <Link href="/test/users">Test</Link>
             </li>
+            <li class="px-2 py-1 bg-green-300 rounded-xl hover:bg-green-400" :class="{'bg-red-300':$page.component === 'Users/Index'}">
+                <Link href="/users">Users</Link>
+            </li>
             <li class="px-2 py-1 bg-green-300 rounded-xl hover:bg-green-400" :class="{'bg-red-300':$page.url === '/logout'}">
                 <Link href="/logout" method="post" :data="{name:'chan'}" as="button">Logout</Link>
             </li>

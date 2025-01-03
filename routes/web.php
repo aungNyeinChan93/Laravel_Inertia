@@ -28,5 +28,8 @@ Route::post('logout',function(){
 });
 
 Route::get('users',[UserController::class,'index']);
+Route::get('users/create',[UserController::class,'create']);
+Route::post('users/store',[UserController::class,'store']);
 Route::get('users/{id}',[UserController::class,'show']);
 Route::post('users/{id}',[UserController::class,'destory']);
+    

@@ -2,7 +2,11 @@
 
     <Head title="Users" />
     <div class="flex justify-between px-10 my-2">
-        <Link href="/users" class="text-xl me-10  text-red-500 p-2">User List</Link>
+        <div>
+            <Link href="/users" class="text-xl me-10  text-red-500 p-2">User List</Link>
+            <Link href="/users/create" as="button"  class="text-xl me-10 text-red-500 p-2">Create</Link>
+        </div>
+
         <input type="text" name="search" placeholder="Search" v-model="search"
             class="px-1 rounded-xl border border-red-400">
         <!-- <form @submit.prevent="formSearch" class="mt-3"> -->

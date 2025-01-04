@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Events\UserCreateEvent;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +32,12 @@ class UserController extends Controller
             ]);
 
         return Inertia::render('Users/Index', [
-            'users' => $users
+            'users' => $users,
+            'can'=>[
+                'test',
+                'create'=>Auth::user()->name === 'admin',
+                // 'delete'=>Gate::authorize('delete', auth()->user()),
+            ]
         ]);
     }
 
@@ -45,12 +53,14 @@ class UserController extends Controller
     //destory
     public function destory($id)
     {
+        Gate::authorize('delete', auth()->user());
         User::find($id)->delete();
     }
 
     //create
     public function create()
     {
+        Gate::authorize('create', auth()->user());
         return Inertia::render('Users/Create');
     }
 
@@ -59,7 +69,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
 
@@ -68,6 +78,8 @@ class UserController extends Controller
             'email'=>$request['email'],
             'password'=>Hash::make($request['password']),
         ]);
+
+        event(new UserCreateEvent($user));
 
         // return Inertia::render('Users/Index');
         return redirect('users');

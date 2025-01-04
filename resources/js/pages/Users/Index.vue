@@ -4,7 +4,7 @@
     <div class="flex justify-between px-10 my-2">
         <div>
             <Link href="/users" class="text-xl me-10  text-red-500 p-2">User List</Link>
-            <Link href="/users/create" as="button"  class="text-xl me-10 text-red-500 p-2">Create</Link>
+            <Link v-if="can.create"  href="/users/create" as="button"  class="text-xl me-10 text-red-500 p-2">Create</Link>
         </div>
 
         <input type="text" name="search" placeholder="Search" v-model="search"
@@ -38,6 +38,9 @@ defineProps({
     users: {
         type: Object,
         required: true,
+    },
+    can:{
+        type: Object,
     }
 });
 

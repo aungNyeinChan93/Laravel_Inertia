@@ -32,6 +32,7 @@ import CardList from '../components/CardList.vue';
 import Card from '../components/Card.vue';
 import { Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
+import { throttle ,debounce } from 'lodash'; //limit request
 
 defineProps({
     users: {
@@ -46,10 +47,10 @@ const search = ref('');
 //     router.get(`users?search=${search.value}`)
 // }
 
-watch(search, value => {
+watch(search,throttle((value) => {
     console.log(value);
     router.get(`users?search=${value}`, {}, { preserveState: true });
-})
+}, 500))
 
 
 </script>

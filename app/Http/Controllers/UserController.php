@@ -58,15 +58,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'data.name' => 'required',
-            'data.email' => 'required|email',
-            'data.password' => 'required|min:6',
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
 
         $user = User::create([
-            'name'=>$request->data['name'],
-            'email'=>$request->data['email'],
-            'password'=>Hash::make($request->data['password']),
+            'name'=>$request['name'],
+            'email'=>$request['email'],
+            'password'=>Hash::make($request['password']),
         ]);
 
         // return Inertia::render('Users/Index');

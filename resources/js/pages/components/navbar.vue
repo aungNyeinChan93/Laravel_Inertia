@@ -1,7 +1,7 @@
 <template>
     <nav class=" bg-gray-200 flex p-2 justify-between px-6">
         <span class="brand">
-            <h4 class="text-lg text-green-600">WELCOME {{ username.toUpperCase() }} </h4>
+            <h4 class="text-lg text-green-600">WELCOME {{ username.toUpperCase() ?? null }} </h4>
         </span>
         <ul class="flex justify-center items-center space-x-4 ">
             <li class="px-2 py-1 bg-green-300 rounded-xl hover:bg-green-400" :class="{'bg-red-300':$page.component === 'Home'}">
@@ -17,7 +17,8 @@
                 <Link href="/users">Users</Link>
             </li>
             <li class="px-2 py-1 bg-green-300 rounded-xl hover:bg-green-400" :class="{'bg-red-300':$page.url === '/logout'}">
-                <Link href="/logout" method="post" :data="{name:'chan'}" as="button">Logout</Link>
+                <Link href="/logout" method="post" as="button">Logout</Link>
+                <!-- :data="{name:'chan'}" -->
             </li>
         </ul>
     </nav>
@@ -32,7 +33,7 @@ import { usePage } from "@inertiajs/vue3";
 const { props ,component } = usePage();
 
 const username = computed(() => {
-    return props.test.user;
+    return props.auth.user.name;
 });
 
 // onMounted(()=>{
